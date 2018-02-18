@@ -160,12 +160,4 @@ public interface Configuration {
 	 */
 	public String getSectionName();
 	
-	/**
-	 * Liefert den Hierarchie-Baum zu dem übergebenen Wurzelelement, 'null' wenn
-	 * ein Hierarchie-Baum zu diesem Element nicht existiert.
-	 * 
-	 * @param rootElementName
-	 * @return
-	 */
-//	public OrderedTree<HierarchyContainer> getHierarchyTree(String rootElementName);
 }
