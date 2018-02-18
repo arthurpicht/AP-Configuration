@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="AP-Configuration" default="jar" basedir=".">
+
+    <property name="version" value="0.1-snapshot"/>
+
+    <property name="lib.dir" value="${basedir}/lib"/>
+    <property name="build.dir" value="${basedir}/build"/>
+    <property name="bin.dir" value="${build.dir}/bin"/>
+    <property name="jar.dir" value="${build.dir}/jar"/>
+	<property name="jar.file.name" value="${ant.project.name}-${version}.jar"/>
+
+    <property name="compiler.args" value="-encoding UTF-8 -source 8 -target 8"/>
+
+    <path id="compile.classpath">
+        <fileset dir="${lib.dir}"/>
+    </path>
+
+    <path id="sourcepath">
+        <dirset dir="${basedir}">
+            <include name="src"/>
+            <include name="src-configuration"/>
+        </dirset>
+    </path>
+
+    <target name="clean.build">
+        <mkdir dir="${build.dir}"/>
+        <delete includeemptydirs="true">
+            <fileset dir="${build.dir}" includes="**/*"/>
+        </delete>
+    </target>
+
+    <target name="prepare.build" depends="clean.build">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${bin.dir}"/>
+        <mkdir dir="${jar.dir}"/>
+    </target>
+
+    <target name="compile" depends="prepare.build">
+        <javac destdir="${bin.dir}" fork="true" includeantruntime="false">
+            <compilerarg line="${compiler.args}"/>
+            <classpath refid="compile.classpath"/>
+            <src refid="sourcepath"/>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="${jar.dir}/${jar.file.name}" basedir="${bin.dir}">
+            <fileset dir="${bin.dir}" includes="**/*.class"/>
+            <fileset dir="src" includes="**/*" excludes="**/*.java"/>
+        </jar>
+    </target>
+
+    <target name="prepare.project">
+        <mkdir dir="${lib.dir}"/>
+    </target>
+
+	<target name="resolve.3p" depends="prepare.project" description="Kopiert Libs von Drittanbietern in das lib-Verzeichnis.">
+	</target>
+
+</project>
