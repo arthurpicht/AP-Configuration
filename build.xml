@@ -2,7 +2,12 @@
 
 <project name="AP-Configuration" default="jar" basedir=".">
 
-    <property name="version" value="0.1-snapshot"/>
+    <tstamp>
+        <format property="timestamp" pattern="yyyyMMdd-HHmm"/>
+    </tstamp>
+
+    <property name="version" value="0.1-snapshot${timestamp}"/>
+
 
     <property name="lib.dir" value="${basedir}/lib"/>
     <property name="build.dir" value="${basedir}/build"/>
@@ -13,7 +18,9 @@
     <property name="compiler.args" value="-encoding UTF-8 -source 8 -target 8"/>
 
     <path id="compile.classpath">
+        <!--
         <fileset dir="${lib.dir}"/>
+        -->
     </path>
 
     <path id="sourcepath">
@@ -44,18 +51,20 @@
         </javac>
     </target>
 
-    <target name="jar" depends="compile">
+    <target name="jar" depends="compile" description="Build to JAR">
         <jar destfile="${jar.dir}/${jar.file.name}" basedir="${bin.dir}">
             <fileset dir="${bin.dir}" includes="**/*.class"/>
             <fileset dir="src" includes="**/*" excludes="**/*.java"/>
         </jar>
     </target>
 
+    <!--
     <target name="prepare.project">
         <mkdir dir="${lib.dir}"/>
     </target>
 
-	<target name="resolve.3p" depends="prepare.project" description="Kopiert Libs von Drittanbietern in das lib-Verzeichnis.">
+	<target name="resolve.3p" depends="prepare.project" description="Resolve third party libs.">
 	</target>
+	-->
 
 </project>
