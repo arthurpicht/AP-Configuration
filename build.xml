@@ -13,6 +13,8 @@
     <property name="build.dir" value="${basedir}/build"/>
     <property name="bin.dir" value="${build.dir}/bin"/>
     <property name="bin-test.dir" value="${build.dir}/bin-test"/>
+    <property name="test-resrc.dir" value="${basedir}/test-resrc"/>
+    <property name="test-reports.dir" value="${basedir}/test-reports"/>
     <property name="jar.dir" value="${build.dir}/jar"/>
 	<property name="jar.file.name" value="${ant.project.name}-${version}.jar"/>
 
@@ -75,13 +77,29 @@
         </jar>
     </target>
 
-    <target name="test" depends="compile">
-        <junit>
+    <target name="clean.test">
+        <mkdir dir="${test-reports.dir}"/>
+        <delete includeemptydirs="true">
+            <fileset dir="${build.dir}" includes="**/*"/>
+        </delete>
+    </target>
+
+    <target name="prepare.test" depends="clean.test">
+        <mkdir dir="${test-reports.dir}"/>
+    </target>
+
+    <target name="test" depends="prepare.test, compile">
+        <junit showoutput="true">
             <classpath refid="test.classpath"/>
 
             <classpath location="${bin-test.dir}"/>
+            <classpath location="${test-resrc.dir}"/>
 
-            <test name="de.arthurpicht.configuration.ConfigurationFactoryTestJU4"/>
+            <formatter type="plain"/>
+
+            <test name="de.arthurpicht.configuration.SmokeTest" todir="${test-reports.dir}"/>
+            <test name="de.arthurpicht.configuration.ConfigurationFactoryBindingTest" todir="${test-reports.dir}"/>
+            <test name="de.arthurpicht.configuration.ConfigurationOverloadTest" todir="${test-reports.dir}"/>
 
         </junit>
 
