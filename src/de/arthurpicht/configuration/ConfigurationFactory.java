@@ -25,7 +25,7 @@ public class ConfigurationFactory {
      * @param file Configuration file to be processed.
      * @throws ConfigurationFileNotFoundException If configuration file could not be found or not read.
      */
-    public void addFilesystemConfiguration(File file) throws ConfigurationFileNotFoundException, IOException {
+    public void addConfigurationFileFromFilesystem(File file) throws ConfigurationFileNotFoundException, IOException {
 
         if (file == null) throw new IllegalArgumentException("Specified file is null.");
         if (!file.exists() || !file.isFile() || !file.canRead()) throw new ConfigurationFileNotFoundException(file);
@@ -41,7 +41,7 @@ public class ConfigurationFactory {
      * @param filename Configuration file to be processed.
      * @throws ConfigurationFileNotFoundException If configurationfile could not be found or not read.
      */
-    public void addClasspathConfiguration(String filename) throws ConfigurationFileNotFoundException, IOException {
+    public void addConfigurationFileFromClasspath(String filename) throws ConfigurationFileNotFoundException, IOException {
 
         ConfigurationParser configurationParser;
 

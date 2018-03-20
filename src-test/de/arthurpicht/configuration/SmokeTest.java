@@ -17,7 +17,7 @@ public class SmokeTest {
     public void smokeTest1() {
         ConfigurationFactory configurationFactory = new ConfigurationFactory();
         try {
-            configurationFactory.addClasspathConfiguration("test.conf");
+            configurationFactory.addConfigurationFileFromClasspath("test.conf");
         } catch (ConfigurationFileNotFoundException | IOException e) {
             fail(e.getClass().getSimpleName() + ": " + e.getMessage());
         }

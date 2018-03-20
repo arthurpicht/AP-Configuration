@@ -15,8 +15,8 @@ public class ConfigurationOverloadTest {
 
         ConfigurationFactory configurationFactory = new ConfigurationFactory();
         try {
-            configurationFactory.addFilesystemConfiguration(new File("test-resrc/test.conf"));
-            configurationFactory.addFilesystemConfiguration(new File("test-resrc/test2.conf"));
+            configurationFactory.addConfigurationFileFromFilesystem(new File("test-resrc/test.conf"));
+            configurationFactory.addConfigurationFileFromFilesystem(new File("test-resrc/test2.conf"));
             Configuration myConfiguration = configurationFactory.getConfiguration();
 
             assertEquals(true, myConfiguration.getBoolean("wahrheit"));

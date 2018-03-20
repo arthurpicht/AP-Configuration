@@ -14,7 +14,7 @@ public class ConfigurationFactoryBindingTest {
 
         ConfigurationFactory configurationFactory = new ConfigurationFactory();
         try {
-            configurationFactory.addClasspathConfiguration("test.conf");
+            configurationFactory.addConfigurationFileFromClasspath("test.conf");
         } catch (ConfigurationFileNotFoundException | IOException  e) {
             e.printStackTrace();
             fail(e.getMessage());
@@ -27,7 +27,7 @@ public class ConfigurationFactoryBindingTest {
 
         ConfigurationFactory configurationFactory = new ConfigurationFactory();
         try {
-            configurationFactory.addFilesystemConfiguration(new File("test-resrc/test.conf"));
+            configurationFactory.addConfigurationFileFromFilesystem(new File("test-resrc/test.conf"));
         } catch (IOException | ConfigurationFileNotFoundException e) {
             e.printStackTrace();
             fail(e.getMessage());
