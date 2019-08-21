@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 public class ConfigurationFactoryBindingTest {
 
@@ -27,7 +27,7 @@ public class ConfigurationFactoryBindingTest {
 
         ConfigurationFactory configurationFactory = new ConfigurationFactory();
         try {
-            configurationFactory.addConfigurationFileFromFilesystem(new File("test-resrc/test.conf"));
+            configurationFactory.addConfigurationFileFromFilesystem(new File("src/test/resources/test.conf"));
         } catch (IOException | ConfigurationFileNotFoundException e) {
             e.printStackTrace();
             fail(e.getMessage());

@@ -1,11 +1,7 @@
 package de.arthurpicht.configuration;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ConfigurationProperties {
 	
@@ -152,7 +148,7 @@ public class ConfigurationProperties {
 	 * 
 	 * @param configurationProperties
 	 */
-	public void override(ConfigurationProperties configurationProperties) {		
+	public void override(ConfigurationProperties configurationProperties) {
 		Set<String> keys = configurationProperties.getKeys();
 		for (String key : keys) {
 			List<String> propertyListOverride = configurationProperties.getPropertyList(key);

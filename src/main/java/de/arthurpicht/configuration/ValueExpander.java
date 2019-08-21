@@ -1,7 +1,5 @@
 package de.arthurpicht.configuration;
 
-import de.arthurpicht.configuration.ConfigurationProperties;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;

@@ -1,7 +1,5 @@
 package de.arthurpicht.configuration;
 
-import de.arthurpicht.configuration.ConfigurationRuntimeException;
-
 public class ParseException extends ConfigurationRuntimeException {
 
 	private static final long serialVersionUID = -1328146227566845915L;

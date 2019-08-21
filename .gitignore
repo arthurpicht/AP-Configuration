@@ -1,5 +1,9 @@
 .idea/workspace.xml
+.gradle
 build
-out
-lib-test-junit4
-test-reports
+gradle
+gradlew
+gradlew.bat
+
+
+

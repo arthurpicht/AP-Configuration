@@ -1,13 +1,12 @@
 package de.arthurpicht.configuration;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Set;
-
 import de.arthurpicht.configuration.helper.RessourceLocator;
 import de.arthurpicht.configuration.helper.RessourceLocatorException;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Set;
 
 @SuppressWarnings("WeakerAccess")
 public class ConfigurationFactory {
