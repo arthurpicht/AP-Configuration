@@ -1,26 +1,21 @@
 package de.arthurpicht.configuration;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SmokeTest {
 
     @Test
-    public void smokeTest1() {
+    public void smokeTest1() throws IOException, ConfigurationFileNotFoundException {
         ConfigurationFactory configurationFactory = new ConfigurationFactory();
-        try {
-            configurationFactory.addConfigurationFileFromClasspath("test.conf");
-        } catch (ConfigurationFileNotFoundException | IOException e) {
-            fail(e.getClass().getSimpleName() + ": " + e.getMessage());
-        }
+        configurationFactory.addConfigurationFileFromClasspath("test.conf");
 
         Configuration configuration = configurationFactory.getConfiguration();
 
@@ -31,30 +26,22 @@ public class SmokeTest {
         assertEquals(4711, intValue);
 
         boolean boolValue = configuration.getBoolean("wahrheit");
-        assertEquals(true, boolValue);
+        assertTrue(boolValue);
 
         double doubleValue = configuration.getDouble("doublezahl");
         assertEquals(4.56, doubleValue, 0.01);
 
         List<String> stringList = configuration.getStringList("liste");
-        assertThat(stringList, is(Arrays.asList("Aachen", "Düren", "Köln")));
+        List<String> stringListExpected = Arrays.asList("Aachen", "Düren", "Köln");
+        assertEquals(stringListExpected, stringList);
 
         String expandedValue = configuration.getString("interpol");
         assertEquals("vor 3 soso 4.56 ende", expandedValue);
 
-        try {
-            String noValue = configuration.getString("not_existing");
-            fail("NoSuchKeyException expected");
-        } catch (NoSuchKeyException e) {
-
-        }
+        Assertions.assertThrows(NoSuchKeyException.class, () -> configuration.getString("not_existing"));
 
         String defaultValue = configuration.getString("not_existing", "defaultValue");
         assertEquals("defaultValue", defaultValue);
     }
 
-//    @Test
-//    public void willFail() {
-//        fail();
-//    }
 }

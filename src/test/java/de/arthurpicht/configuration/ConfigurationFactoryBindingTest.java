@@ -1,37 +1,26 @@
 package de.arthurpicht.configuration;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.fail;
 
 public class ConfigurationFactoryBindingTest {
 
     @Test
-    public void addConfigurationFromFilesystem() {
+    public void addConfigurationFromFilesystem() throws IOException, ConfigurationFileNotFoundException {
 
         ConfigurationFactory configurationFactory = new ConfigurationFactory();
-        try {
-            configurationFactory.addConfigurationFileFromClasspath("test.conf");
-        } catch (ConfigurationFileNotFoundException | IOException  e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
+        configurationFactory.addConfigurationFileFromClasspath("test.conf");
 
     }
 
     @Test
-    public void addConfigurationFromClasspath() {
+    public void addConfigurationFromClasspath() throws IOException, ConfigurationFileNotFoundException {
 
         ConfigurationFactory configurationFactory = new ConfigurationFactory();
-        try {
-            configurationFactory.addConfigurationFileFromFilesystem(new File("src/test/resources/test.conf"));
-        } catch (IOException | ConfigurationFileNotFoundException e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
+        configurationFactory.addConfigurationFileFromFilesystem(new File("src/test/resources/test.conf"));
 
     }
 }
