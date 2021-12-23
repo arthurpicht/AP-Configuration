@@ -1,6 +1,7 @@
 package de.arthurpicht.configuration;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -8,11 +9,10 @@ public class ConfigurationManager implements Configuration {
 
     private static final String KEY_IS_NULL_EXCEPTION = "Key is null or empty.";
 
-    private ConfigurationProperties configurationProperties;
+    private final ConfigurationProperties configurationProperties;
 
     public ConfigurationManager(ConfigurationProperties configurationProperties) {
         this.configurationProperties = configurationProperties;
-//		System.out.println("Initialisierung ConfigurationManager. configProperties.size = " + this.configurationProperties.getKeys().size());
     }
 
     @Override
@@ -69,7 +69,6 @@ public class ConfigurationManager implements Configuration {
     @Override
     public List<String> getStringList(String key) {
         this.keyConsistencyCheck(key);
-
         return this.configurationProperties.getPropertyList(key);
     }
 
@@ -121,16 +120,19 @@ public class ConfigurationManager implements Configuration {
     }
 
     @Override
+    public List<String> getStringList(String key, String... defaultValue) {
+        try {
+            return this.getStringList(key);
+        } catch (NoSuchKeyException | ParseException ex) {
+            return Arrays.asList(defaultValue);
+        }
+    }
+
+    @Override
     public String getSectionName() {
         return this.configurationProperties.getSectionName();
     }
 
-    /**
-     * Prüft ob Schlüssel konsistent ist: nicht 'null', nicht leer
-     * und in der Konfiguration vorhanden.
-     *
-     * @param key
-     */
     private void keyConsistencyCheck(String key) {
         if (key == null || key.equals("")) {
             throw new ParseException(KEY_IS_NULL_EXCEPTION);

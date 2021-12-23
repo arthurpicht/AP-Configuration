@@ -35,6 +35,10 @@ public class SmokeTest {
         List<String> stringListExpected = Arrays.asList("Aachen", "Düren", "Köln");
         assertEquals(stringListExpected, stringList);
 
+        List<String> stringListByDefault = configuration.getStringList("not_existing", "a", "b");
+        List<String> stringListByDefaultExpected = Arrays.asList("a", "b");
+        assertEquals(stringListByDefaultExpected, stringListByDefault);
+
         String expandedValue = configuration.getString("interpol");
         assertEquals("vor 3 soso 4.56 ende", expandedValue);
 

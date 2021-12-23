@@ -104,13 +104,13 @@ public interface Configuration {
 	 * Liefert den Konfigurationswert vom Type 'String' für die übergebene
 	 * Konfigurationsvariable. Der übergebene Defaultwert wird zurück geliefert,
 	 * falls die Konfigurationsvariable nicht definiert ist.
-	 * 
+	 *
 	 * @param configVarName
 	 * @param defaultValue
 	 * @return
 	 */
 	public String getString(String configVarName, String defaultValue);
-	
+
 	/**
 	 * Liefert einen Konfigurationswert vom Basisdatentyp 'double' für den
 	 * übergebenen Schlüssel.
@@ -143,15 +143,27 @@ public interface Configuration {
 	
 	/**
 	 * Liefert eine Liste mit Elementen vom Typ String für den übergebenen Schlüssel.
-	 * Falls eine entsprechender Konfigurationsschlüssel nicht definiert ist oder
+	 * Falls ein entsprechender Konfigurationsschlüssel nicht definiert ist oder
 	 * nicht korrekt geparst werden kann, wird eine Liste mit dem übergebenen Default-
-	 * Wert als einzigem Element zurück geliefert.
+	 * Wert als einzigem Element zurückgeliefert.
 	 * 
 	 * @param key
 	 * @param defaultValue
 	 * @return
 	 */
 	public List<String> getStringList(String key, String defaultValue);
+
+	/**
+	 * Liefert eine Liste mit Elementen vom Typ String für den übergebenen Schlüssel.
+	 * Falls ein entsprechender Konfigurationsschlüssel nicht definiert ist oder
+	 * nicht korrekt geparst werden kann, wird eine Liste mit den übergebenen
+	 * Defaultwerten zurückgeliefert.
+	 *
+	 * @param key
+	 * @param defaultValues
+	 * @return
+	 */
+	public List<String> getStringList(String key, String... defaultValues);
 
 	/**
 	 * Liefert den Namen der Sektion der dieses Konfigurationsobjekt entspricht.
