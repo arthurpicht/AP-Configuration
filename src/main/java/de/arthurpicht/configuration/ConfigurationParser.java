@@ -9,14 +9,12 @@ import java.util.*;
 public class ConfigurationParser {
 	
 	// Sections der Konfiguration: Key = SectionName, Values = Zeilen der Konfigurationsdatei
-	private Map<String, List<String>> configSections;
-	
-	private ConfigurationSectionProperties configurationSectionProperties;
-	
-	
+	private final Map<String, List<String>> configSections;
+	private final ConfigurationSectionProperties configurationSectionProperties;
+
 	public ConfigurationParser(InputStream inputStream) throws IOException {
 		
-		this.configSections = new HashMap<>();
+		this.configSections = new LinkedHashMap<>();
 		this.configurationSectionProperties = new ConfigurationSectionProperties();
 		
 		this.splitToSectionsAndLines(inputStream);
@@ -41,18 +39,18 @@ public class ConfigurationParser {
 	 */
 	private void splitToSectionsAndLines(InputStream inputStream) throws IOException {
 		
-		List<String> configLines = new ArrayList<String>();
-		String sectionName = new String();
+		List<String> configLines = new ArrayList<>();
+		String sectionName = "";
 		
 		if (inputStream == null) {
-			// Wenn der übergebene Stream null ist wird einfach
+			// Wenn der übergebene Stream null ist, wird einfach
 			// die leere Liste zurückgegeben.
 			this.configSections.put(sectionName, configLines);
 			return;
 		}
 		
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-		String line = new String();
+		String line = "";
 		
 		while(line != null) {
 			line = bufferedReader.readLine();
@@ -71,7 +69,7 @@ public class ConfigurationParser {
 						
 						if (!sectionName.equals("") || (configLines.size() > 0)) {
 							this.configSections.put(sectionName, configLines);							
-							configLines = new ArrayList<String>();
+							configLines = new ArrayList<>();
 						}
 						
 						sectionName = sectionNameNext;

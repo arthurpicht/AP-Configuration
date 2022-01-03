@@ -5,16 +5,16 @@ import java.util.*;
 
 public class ConfigurationProperties {
 	
-	private String sectionName;
+	private final String sectionName;
 	
-	private Map<String, List<String>> configurationPropertiesMap;
+	private final Map<String, List<String>> configurationPropertiesMap;
 //	private Map<String, OrderedTree<HierarchyContainer>> hierarchyTreeMap;
 	
 	public ConfigurationProperties(String sectionName, List<String> configLines) {
 		
 		this.sectionName = sectionName;
 		
-		this.configurationPropertiesMap = new HashMap<String, List<String>>();
+		this.configurationPropertiesMap = new LinkedHashMap<>();
 //		this.hierarchyTreeMap = new HashMap<String, OrderedTree<HierarchyContainer>>();
 		
 		for (String configLine : configLines) {
