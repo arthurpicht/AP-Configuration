@@ -1,0 +1,11 @@
+AP-Configuration
+Release notes
+===================================
+
+03.01.2022
+Version 0.1.5
+* Internal representation of sections moved from HashSet to LinkesHashSet to prevent order
+
+23.12.2022
+Version 0.1.4
+* getStringList with List as default

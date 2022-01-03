@@ -2,17 +2,18 @@ package de.arthurpicht.configuration;
 
 import java.io.PrintStream;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class ConfigurationSectionProperties {
 	
 	private ConfigurationProperties templateSection;
-	private Map<String, ConfigurationProperties> sections;
+	private final Map<String, ConfigurationProperties> sections;
 	
 	public ConfigurationSectionProperties() {
 		this.templateSection = null;
-		this.sections = new HashMap<String, ConfigurationProperties>();
+		this.sections = new LinkedHashMap<>();
 	}
 	
 	public void putSection(ConfigurationProperties configurationProperties) {
