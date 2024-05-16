@@ -3,15 +3,13 @@ package de.arthurpicht.configuration;
 import de.arthurpicht.configuration.helper.RessourceLocator;
 import de.arthurpicht.configuration.helper.RessourceLocatorException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Set;
 
 @SuppressWarnings("WeakerAccess")
 public class ConfigurationFactory {
 
-    private ConfigurationSectionProperties configurationSectionProperties;
+    private final ConfigurationSectionProperties configurationSectionProperties;
 
     public ConfigurationFactory() {
         this.configurationSectionProperties = new ConfigurationSectionProperties();
@@ -25,32 +23,40 @@ public class ConfigurationFactory {
      * @throws ConfigurationFileNotFoundException If configuration file could not be found or not read.
      */
     public void addConfigurationFileFromFilesystem(File file) throws ConfigurationFileNotFoundException, IOException {
-
         if (file == null) throw new IllegalArgumentException("Specified file is null.");
         if (!file.exists() || !file.isFile() || !file.canRead()) throw new ConfigurationFileNotFoundException(file);
-
         ConfigurationParser configurationParser = new ConfigurationParser(new FileInputStream(file));
         this.configurationSectionProperties.override(configurationParser.getConfigurationSectionProperties());
     }
 
     /**
      * Binds file specified by filename from classpath and adds its configuration content
-     * to this configuration. Preexisting configuration properties are overriden.
+     * to this configuration. Preexisting configuration properties are overridden.
      *
      * @param filename Configuration file to be processed.
-     * @throws ConfigurationFileNotFoundException If configurationfile could not be found or not read.
+     * @throws ConfigurationFileNotFoundException If configuration file could not be found or not read.
      */
     public void addConfigurationFileFromClasspath(String filename) throws ConfigurationFileNotFoundException, IOException {
-
         ConfigurationParser configurationParser;
-
         try {
             RessourceLocator ressourceLocator = RessourceLocator.bindRessourceFromClasspath(filename);
             configurationParser = new ConfigurationParser(ressourceLocator.getInputStream());
         } catch (RessourceLocatorException e1) {
             throw new ConfigurationFileNotFoundException(filename + " [classpath]", e1);
         }
+        this.configurationSectionProperties.override(configurationParser.getConfigurationSectionProperties());
+    }
 
+    /**
+     * Adds configuration given as string to this configuration. Preexisting configuration properties
+     * are overridden.
+     *
+     * @param string configuration string
+     * @throws IOException
+     */
+    public void addConfigurationFromString(String string) throws IOException {
+        InputStream inputStream = new ByteArrayInputStream(string.getBytes());
+        ConfigurationParser configurationParser = new ConfigurationParser(inputStream);
         this.configurationSectionProperties.override(configurationParser.getConfigurationSectionProperties());
     }
 
@@ -73,7 +79,7 @@ public class ConfigurationFactory {
     }
 
     /**
-     * Prüft ob die angegebene Sektion existiert.
+     * Prüft, ob die angegebene Sektion existiert.
      *
      * @param sectionName
      * @return
@@ -84,7 +90,7 @@ public class ConfigurationFactory {
 
     /**
      * Liefert die Konfiguration für die bezeichnete Sektion.
-     * Liefert null wenn diese nicht besteht.
+     * Liefert null, wenn diese nicht besteht.
      *
      * @param sectionName
      * @return Konfiguration für bezeichnete Sektion, null wenn diese nicht besteht.
@@ -108,7 +114,7 @@ public class ConfigurationFactory {
     }
 
     /**
-     * Prüft ob eine Sektionsvorlage (Template) existiert.
+     * Prüft, ob eine Sektionsvorlage (Template) existiert.
      *
      * @return
      */

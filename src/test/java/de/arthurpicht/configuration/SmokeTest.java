@@ -1,22 +1,37 @@
 package de.arthurpicht.configuration;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SmokeTest {
 
-    @Test
-    public void smokeTest1() throws IOException, ConfigurationFileNotFoundException {
-        ConfigurationFactory configurationFactory = new ConfigurationFactory();
-        configurationFactory.addConfigurationFileFromClasspath("test.conf");
+    private static ConfigurationFactory configurationFactory;
 
+    @BeforeAll
+    public static void prepare() throws IOException, ConfigurationFileNotFoundException {
+        configurationFactory = new ConfigurationFactory();
+        configurationFactory.addConfigurationFileFromClasspath("test.conf");
+    }
+
+    @Test
+    public void sections() {
+        Set<String> sectionNames = configurationFactory.getSectionNames();
+        assertTrue(sectionNames.contains(""));
+        assertTrue(sectionNames.contains("section1"));
+        assertTrue(sectionNames.contains("section2"));
+        assertEquals(3, sectionNames.size());
+    }
+
+    @Test
+    public void unnamedSection() {
         Configuration configuration = configurationFactory.getConfiguration();
 
         String string = configuration.getString("ein_text");
@@ -47,5 +62,29 @@ public class SmokeTest {
         String defaultValue = configuration.getString("not_existing", "defaultValue");
         assertEquals("defaultValue", defaultValue);
     }
+
+    @Test
+    public void section1() {
+        Configuration configuration = configurationFactory.getConfiguration("section1");
+        assertEquals(2, configuration.getKeys().size());
+
+        String text = configuration.getString("text");
+        assertEquals("Dies ist ein Text.", text);
+
+        int wert = configuration.getInt("wert");
+        assertEquals(42, wert);
+    }
+
+    @Test
+    public void section2() {
+        Configuration configuration = configurationFactory.getConfiguration("section2");
+        assertEquals(2, configuration.getKeys().size());
+
+        boolean wahrheit = configuration.getBoolean("wahrheit");
+        assertFalse(wahrheit);
+
+        double zahl = configuration.getDouble("zahl");
+        assertEquals(42.42, zahl);
+     }
 
 }
