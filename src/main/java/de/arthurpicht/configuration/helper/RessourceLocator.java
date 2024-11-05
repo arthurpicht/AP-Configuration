@@ -20,7 +20,7 @@ public class RessourceLocator {
 	private URL url;
 	
 	/**
-	 * Erzeugt RessourceLocator. Zur sinnvollen Anwendung Factorymethoden nutzen.<p/>
+	 * Erzeugt RessourceLocator. Zur sinnvollen Anwendung Factorymethoden nutzen.<p>
 	 * Gültige URLs sind z.B.: "http://example.org/myFile.xml" oder "file:c://myschemas/myschema.xsd" oder "jar:file:/path-to-jar-file!/path-within-jar-file".
 	 * 
 	 * @param url
