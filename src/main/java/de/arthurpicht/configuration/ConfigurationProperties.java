@@ -210,7 +210,7 @@ public class ConfigurationProperties {
 		String propertyName = partsOfLine[0].trim();
 		String propertyValue = partsOfLine[1].trim();
 		
-		if (!propertyName.equals("") && !propertyValue.equals("")) {
+		if (!propertyName.isEmpty() && !propertyValue.isEmpty()) {
 			// Zerlege den Variablenwert in Listelemente. Genau ein Element, wenn es sich
 			// um eine einfache Zuweisung handelt. Viele Elemente, wenn es sich um eine
 			// 'Single-Line-Liste' handelt.
@@ -219,13 +219,13 @@ public class ConfigurationProperties {
 			// Prüfen ob diese Konfigurationsvariable schon vorliegt
 			List<String> valueList = this.configurationPropertiesMap.get(propertyName);
 			if (valueList != null) {
-				// Es liegt schon ein Propertie mit diesem Namen vor. Füge Wert als
+				// Es liegt schon ein Property mit diesem Namen vor. Füge Wert als
 				// weiteres Element der Liste hinzu
 				valueList.addAll(valueListElements);
 			} else {
 				// Diese Konfigurationsvariable existiert noch nicht.
 				// Füge sie hinzu
-				valueList = new ArrayList<String>();
+				valueList = new ArrayList<>();
 				valueList.addAll(valueListElements);
 				this.configurationPropertiesMap.put(propertyName, valueList);
 			}			
@@ -311,10 +311,15 @@ public class ConfigurationProperties {
 	 * @param value
 	 * @return
 	 */
-	private List<String> getSingleLineListElements(String value) {	
+	private List<String> getSingleLineListElements(String value) {
+
+		if (value.startsWith("\"") && value.endsWith("\"")) {
+			value = value.substring(1, value.length() - 1);
+			return List.of(value);
+		}
 		
 		String[] splitStringArray = value.split(Character.toString(Parameters.getListDelimiter()));
-		ArrayList<String> splitList = new ArrayList<String>();
+		ArrayList<String> splitList = new ArrayList<>();
 		for (String splitElement : splitStringArray) {
 			splitList.add(splitElement.trim());
 		}

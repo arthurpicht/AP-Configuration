@@ -57,6 +57,9 @@ public class SmokeTest {
         String expandedValue = configuration.getString("interpol");
         assertEquals("vor 3 soso 4.56 ende", expandedValue);
 
+        String textMitKomma = configuration.getString("text_mit_komma");
+        assertEquals("hier, steht, ein Text.", textMitKomma);
+
         Assertions.assertThrows(NoSuchKeyException.class, () -> configuration.getString("not_existing"));
 
         String defaultValue = configuration.getString("not_existing", "defaultValue");

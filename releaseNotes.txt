@@ -2,6 +2,11 @@ AP-Configuration
 Release notes
 ===================================
 
+28.01.2025
+Version 0.1.8
+* Fix: Ein Konfigurationswert mit Komma im Text wird nicht übernommen, sondern nur der Teilstring vor dem ersten
+Komma. Lösung: String mit Kommata kann in Anführungszeichen gesetzt werden und wird als Ganzer übernommen.
+
 05.11.2024
 Version 0.1.7
 * Publishing nicht mehr über jitpack.io sondern über github.com
