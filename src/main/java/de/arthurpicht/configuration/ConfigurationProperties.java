@@ -205,6 +205,9 @@ public class ConfigurationProperties {
 	 * @param configLine
 	 */
 	private void analyzeConfigLine(String configLine) {
+		if (!configLine.contains(String.valueOf(Parameters.getAssignmentOperator())))
+			throw new ConfigurationRuntimeException("No assignment operator found in configuration line.");
+
 		String[] partsOfLine = configLine.split(Character.toString(Parameters.getAssignmentOperator()), 2);
 		
 		String propertyName = partsOfLine[0].trim();

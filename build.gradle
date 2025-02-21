@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'de.arthurpicht'
-version '0.1.7'
+version '0.1.9'
 def artifact = 'ap-configuration'
 
 repositories {
@@ -13,10 +13,9 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'com.github.arthurpicht:utils-core:1.19.0'
-
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.11.3'
+    testImplementation 'de.arthurpicht:ap-utils-core:1.22.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 java {
